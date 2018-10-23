@@ -607,19 +607,30 @@ window.onload = function() {
 
   video.addEventListener('loadeddata', function() {
     // 缓存等待加载
+    console.log('loadeddata')
   })
 
   video.addEventListener('progress', function() {
-
+    console.log('progree')
   })
 
   video.addEventListener('canplay', function() {
-
+    console.log('canplay')
   })
 
   video.addEventListener('canplaythrough', function() {
-
+    console.log('canplaythroung')
   })
+
+  video.addEventListener('waiting', function() {
+    console.log('waiting')
+  })
+
+  video.addEventListener('playing', function() {
+    console.log('playing')
+  })
+
+  video.src = 'B.mp4'
 
 
 };
