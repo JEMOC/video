@@ -1,4 +1,4 @@
-window.onload = function() {
+window.onload = function () {
   var video = document.querySelector("video");
 
   var videoObj = {};
@@ -19,7 +19,7 @@ window.onload = function() {
   var plb = document.querySelector(".player-list-block");
   btn1.addEventListener(
     "click",
-    function() {
+    function () {
       pld.style.display = "none";
       plb.style.display = "block";
       this.style.display = "none";
@@ -29,7 +29,7 @@ window.onload = function() {
   );
   btn2.addEventListener(
     "click",
-    function() {
+    function () {
       pld.style.display = "block";
       plb.style.display = "none";
       this.style.display = "none";
@@ -41,7 +41,7 @@ window.onload = function() {
   // contentmenu
   video.addEventListener(
     "contextmenu",
-    function(e) {
+    function (e) {
       e.preventDefault();
     },
     false
@@ -79,7 +79,7 @@ window.onload = function() {
 
   screenBtn.addEventListener(
     "click",
-    function() {
+    function () {
       if (!checkFull()) {
         requestFullScreen(player);
         videoObj.wideMode = false;
@@ -137,7 +137,7 @@ window.onload = function() {
 
   window.addEventListener(
     "resize",
-    function() {
+    function () {
       if (!checkFull()) {
         player.classList.remove("fullscreen");
       } else {
@@ -159,7 +159,7 @@ window.onload = function() {
   //4:3
   var pro = document.querySelector("#pro");
   var f43 = false;
-  pro.addEventListener("click", function() {
+  pro.addEventListener("click", function () {
     f43 = true;
     var width = video.offsetWidth;
     var height = video.offsetHeight;
@@ -198,7 +198,7 @@ window.onload = function() {
 
   volumeBar.addEventListener(
     "mousedown",
-    function(e) {
+    function (e) {
       volumeChange(e);
       volumeWrap.classList.add("volume-bar-hover");
       document.addEventListener("mousemove", volumeChange, false);
@@ -208,7 +208,7 @@ window.onload = function() {
 
   document.addEventListener(
     "mouseup",
-    function() {
+    function () {
       document.removeEventListener("mousemove", volumeChange);
       volumeWrap.classList.remove("volume-bar-hover");
     },
@@ -221,7 +221,7 @@ window.onload = function() {
   var voled = 0;
   volumeBtn.addEventListener(
     "click",
-    function() {
+    function () {
       if (video.volume !== 0) {
         voled = video.volume;
         video.volume = 0;
@@ -235,12 +235,12 @@ window.onload = function() {
 
   //volume event
 
-  video.addEventListener("volumechange", function() {
+  video.addEventListener("volumechange", function () {
     videoObj.volume = video.volume;
   });
 
   Object.defineProperty(videoObj, "volume", {
-    set: function(value) {
+    set: function (value) {
       volNum.innerHTML = parseInt(value * 100);
       cVolume.style.setProperty("--volume", `${value}`);
       volumeDot.style.setProperty("--dot", `-${value * 50}px`);
@@ -253,7 +253,7 @@ window.onload = function() {
   });
 
   Object.defineProperty(videoObj, "muted", {
-    set: function(flage) {
+    set: function (flage) {
       if (flage) {
         video.volume = 0;
         volumeWrap.classList.add("volume-muted");
@@ -286,7 +286,7 @@ window.onload = function() {
 
   currentBar.addEventListener(
     "mousedown",
-    function(e) {
+    function (e) {
       video.currentTime = progree.call(this, e) * video.duration;
       videoObj.playState = true;
     },
@@ -295,7 +295,7 @@ window.onload = function() {
 
   currentBar.addEventListener(
     "mousemove",
-    function(e) {
+    function (e) {
       videoObj.detailTime = progree.call(this, e);
     },
     false
@@ -303,14 +303,14 @@ window.onload = function() {
 
   currentBar.addEventListener(
     "mouseout",
-    function() {
+    function () {
       viewpoint.style.setProperty("display", "none");
     },
     false
   );
 
   Object.defineProperty(videoObj, "detailTime", {
-    set: function(f) {
+    set: function (f) {
       viewpoint.style.setProperty("display", "block");
       viewpoint.style.setProperty("left", `${f * 100}%`);
       detailTime.innerHTML = Time(f * video.duration);
@@ -318,13 +318,13 @@ window.onload = function() {
   });
 
   Object.defineProperty(videoObj, "progreeTime", {
-    set: function(cur) {
+    set: function (cur) {
       vcurrentTime.innerHTML = Time(cur);
       progreeBar.style.setProperty("--progree", `${cur / video.duration}`);
     }
   });
 
-  video.addEventListener("timeupdate", function() {
+  video.addEventListener("timeupdate", function () {
     videoObj.progreeTime = video.currentTime;
   });
 
@@ -335,10 +335,10 @@ window.onload = function() {
   var controlWrap = document.querySelector(".video-control-wrapper");
 
   Object.defineProperty(videoObj, "playState", {
-    get: function() {
+    get: function () {
       return this.status;
     },
-    set: function(f) {
+    set: function (f) {
       this.status = f;
       if (f) {
         video.play();
@@ -349,7 +349,7 @@ window.onload = function() {
   });
 
   Object.defineProperty(videoObj, "mouseState", {
-    set: function(bool) {
+    set: function (bool) {
       if (bool) {
         videoWrap.classList.remove("video-no-cursor");
         videoWrap.classList.add("show-control");
@@ -362,7 +362,7 @@ window.onload = function() {
 
   video.addEventListener(
     "click",
-    function() {
+    function () {
       videoObj.playState = !videoObj.playState;
       if (videoObj.playState) {
         videoObj.mouseState = false;
@@ -371,23 +371,23 @@ window.onload = function() {
     false
   );
 
-  video.addEventListener("ended", function() {
+  video.addEventListener("ended", function () {
     videoObj.playState = false;
   });
 
-  video.addEventListener("play", function() {
+  video.addEventListener("play", function () {
     playStatus.classList.add("video-status-play");
     playStatus.classList.remove("video-status-pause");
   });
 
-  video.addEventListener("pause", function() {
+  video.addEventListener("pause", function () {
     playStatus.classList.add("video-status-pause");
     playStatus.classList.remove("video-status-play");
   });
 
   playStatus.addEventListener(
     "click",
-    function() {
+    function () {
       videoObj.playState = !videoObj.playState;
     },
     false
@@ -397,11 +397,11 @@ window.onload = function() {
 
   videoWrap.addEventListener(
     "mousemove",
-    function() {
+    function () {
       clearTimeout(timeout);
       videoObj.mouseState = true;
       if (!document.querySelector(".control-wrap-hover")) {
-        timeout = window.setTimeout(function() {
+        timeout = window.setTimeout(function () {
           videoObj.mouseState = false;
         }, 2000);
       }
@@ -411,7 +411,7 @@ window.onload = function() {
 
   controlWrap.addEventListener(
     "mouseover",
-    function() {
+    function () {
       this.classList.add("control-wrap-hover");
     },
     false
@@ -419,7 +419,7 @@ window.onload = function() {
 
   controlWrap.addEventListener(
     "mouseout",
-    function() {
+    function () {
       this.classList.remove("control-wrap-hover");
     },
     false
@@ -431,7 +431,7 @@ window.onload = function() {
   var rateDot = document.querySelector(".rate-dot");
 
   Object.defineProperty(videoObj, "playbackRate", {
-    set: function(val) {
+    set: function (val) {
       function left(val) {
         var v = val;
         if (v == 0.5) {
@@ -453,7 +453,7 @@ window.onload = function() {
 
   rateBar.addEventListener(
     "click",
-    function(e) {
+    function (e) {
       var f = progree.call(this, e);
       var s = 1.0;
       if (f <= 0.1) {
@@ -475,19 +475,19 @@ window.onload = function() {
   );
 
   var quan = document.querySelector(".video-web-fullscreen");
-  quan.onclick = function() {
+  quan.onclick = function () {
     videoObj.fullWeb = "";
   };
 
   Object.defineProperty(videoObj, "fullWeb", {
-    set: function(f) {
+    set: function (f) {
       if (typeof this.fwb === "undefined") {
         this.fwb = true;
       }
       if (typeof f === "boolean") {
         this.fwb = f;
       }
-      if(!this.wmd) {
+      if (!this.wmd) {
         this.wideMode = false;
       }
       if (this.fwb) {
@@ -500,12 +500,12 @@ window.onload = function() {
   });
 
   var wide = document.querySelector(".video-wide-screen .icon-wide-screen");
-  wide.onclick = function() {
+  wide.onclick = function () {
     videoObj.wideMode = "";
   };
 
   Object.defineProperty(videoObj, "wideMode", {
-    set: function(f) {
+    set: function (f) {
       var test = document.querySelector(".r-con .text-box");
       var width = document.querySelector(".wrap").offsetWidth;
       var height = (9 * width) / 16;
@@ -515,7 +515,7 @@ window.onload = function() {
       if (typeof f === "boolean") {
         this.wmd = f;
       }
-      if(!this.fwb) {
+      if (!this.fwb) {
         this.fullWeb = false;
       }
       if (this.wmd) {
@@ -538,19 +538,19 @@ window.onload = function() {
   // setting
 
   var checkBox = document.querySelectorAll('.other-checkbox')
-  checkBox.forEach(function(item) {
-    item.onclick = function() {
+  checkBox.forEach(function (item) {
+    item.onclick = function () {
       var value = parseInt(item.value);
       var checked = item.checked;
-      if(value === 0) {
-        if(checked) {
+      if (value === 0) {
+        if (checked) {
           video.classList.add('video-mirror')
         } else {
           video.classList.remove('video-mirror')
         }
-      } else if(value === 1) {
+      } else if (value === 1) {
         var heimu = document.querySelector('.heimu')
-        if(checked) {
+        if (checked) {
           heimu.style.display = 'block';
         } else {
           heimu.style.display = '';
@@ -561,24 +561,24 @@ window.onload = function() {
 
 
   var radioBox = document.querySelectorAll('input[name="scale"]');
-  radioBox.forEach(function(radio) {
-    radio.onclick = function() {
+  radioBox.forEach(function (radio) {
+    radio.onclick = function () {
       var value = radio.value;
       var checked = radio.checked;
-      if(value === 'scale-default') {
-        if(checked) {
+      if (value === 'scale-default') {
+        if (checked) {
 
         } else {
 
         }
-      } else if(value === 'scale-16-9') {
-        if(checked) {
+      } else if (value === 'scale-16-9') {
+        if (checked) {
 
         } else {
 
         }
-      } else if(value === 'scale-4-3') {
-        if(checked) {
+      } else if (value === 'scale-4-3') {
+        if (checked) {
 
         } else {
 
@@ -591,43 +591,55 @@ window.onload = function() {
 
   // video
 
-  video.addEventListener('loadstart', function() {
+  video.addEventListener('loadstart', function () {
     // 视频开始加载
     console.log('loadstart')
   })
 
-  video.addEventListener('durationchange', function() {
+  video.addEventListener('durationchange', function () {
     vduration.innerHTML = Time(video.duration);
   })
 
-  video.addEventListener('loadedmetadata', function() {
+  video.addEventListener('loadedmetadata', function () {
     console.log(this.videoWidth + "x" + this.videoHeight);
-    console.log(this.videoHeight/this.videoWidth);
+    console.log(this.videoHeight / this.videoWidth);
   })
 
-  video.addEventListener('loadeddata', function() {
+  video.addEventListener('loadeddata', function () {
     // 缓存等待加载
     console.log('loadeddata')
   })
 
-  video.addEventListener('progress', function() {
+  var seekBar = document.querySelector('.seeked-bar');
+  video.addEventListener('progress', function () {
     console.log('progree')
+    if (this.buffered.length > 0) {
+      var buffered = this.buffered.end(0);
+      var rat = buffered / this.duration;
+      seekBar.style.setProperty('--seeked', `${rat}`);
+    }
+
   })
 
-  video.addEventListener('canplay', function() {
+  video.addEventListener('canplay', function () {
     console.log('canplay')
   })
 
-  video.addEventListener('canplaythrough', function() {
+  video.addEventListener('canplaythrough', function () {
     console.log('canplaythroung')
+    seekBar.style.setProperty('--seeked', '1')
   })
 
-  video.addEventListener('waiting', function() {
+  var waiting = document.querySelector('.waiting');
+  video.addEventListener('waiting', function () {
     console.log('waiting')
+    waiting.style.display = 'block'
   })
 
-  video.addEventListener('playing', function() {
+  video.addEventListener('playing', function () {
     console.log('playing')
+    waiting.style.display = ''
+
   })
 
   video.src = 'B.mp4'
